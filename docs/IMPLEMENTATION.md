@@ -18,7 +18,7 @@ Stack: Next.js (App Router, TypeScript) · Supabase (Postgres, Auth with Google,
 ## Features, in order (each one small and testable)
 
 **F1 — Scaffold + simulated route data**
-Next.js app, SIMULATED DATA banner on every page, simulated route (8 stops, 5 segments) in `lib/route.ts`.
+Next.js app, SIMULATED DATA banner on every page, simulated route (9 stops, 4 segments) in `lib/route.ts`.
 *Acceptance:* home page links to Driver and Passenger; banner visible.
 
 **F2 — Passenger map**
