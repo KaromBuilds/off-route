@@ -18,7 +18,7 @@ export default function MyReportsPage() {
 
   const load = useCallback(async () => {
     if (!supabase || !session) return;
-    const { data, error } = await supabase.from("reports")
+    const { data, error } = await supabase.from("off_route_reports")
       .select("id, transcript, type, segment_id, model_confidence, created_at, expires_at")
       .order("created_at", { ascending: false });
     if (error) return setMsg("Could not load your reports.");
@@ -31,7 +31,7 @@ export default function MyReportsPage() {
     if (!supabase || !editing) return;
     const t = editing.transcript.trim();
     if (t.length < 1 || t.length > MAX) return setMsg(`The report must be 1–${MAX} characters.`);
-    const { error } = await supabase.from("reports")
+    const { error } = await supabase.from("off_route_reports")
       .update({ transcript: t, type: editing.type, segment_id: editing.segment_id }).eq("id", editing.id);
     setMsg(error ? "Could not save the correction." : "Correction saved.");
     setEditing(null);
@@ -40,7 +40,7 @@ export default function MyReportsPage() {
 
   async function remove(id: string) {
     if (!supabase || !confirm("Delete this report? It disappears from the passenger map.")) return;
-    const { error } = await supabase.from("reports").delete().eq("id", id);
+    const { error } = await supabase.from("off_route_reports").delete().eq("id", id);
     setMsg(error ? "Could not delete." : "Report deleted.");
     load();
   }

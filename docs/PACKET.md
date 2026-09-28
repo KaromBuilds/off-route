@@ -131,7 +131,7 @@ In three years, Off Route covers the main colectivo corridors between Estado de 
 | ML | Lightweight text classifier trained on labeled simulated phrases + proximity/time clustering for confidence | Runs in the app, no paid API; outputs labeled as model estimates |
 
 **Data model (simplified)**
-- `reports`: id, driver_id, transcript (max 280 chars), type, segment_id, status (draft / unverified / confirmed / expired), created_at, expires_at.
+- `off_route_reports`: id, driver_id, transcript (max 280 chars), type, segment_id, status (draft / unverified / confirmed / expired), created_at, expires_at.
 - `route_segments` and `stops`: simulated geometry for the pilot route.
 - `public_notices` (view): type, segment, affected stops, alternative stop, status, expires_at. No driver_id.
 
@@ -155,6 +155,6 @@ In three years, Off Route covers the main colectivo corridors between Estado de 
 
 - [ ] No secrets in the repo: Supabase keys only in Vercel environment variables.
 - [ ] Auth: Sign in with Google for drivers.
-- [ ] RLS on for `reports`.
+- [ ] RLS on for `off_route_reports`.
 - [ ] Every form validates input (length, type).
 - [ ] Only invented data, labeled "SIMULATED DATA" on screen.

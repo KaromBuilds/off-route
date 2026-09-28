@@ -3,7 +3,7 @@
 
 create extension if not exists pgcrypto;
 
-create table if not exists public.reports (
+create table if not exists public.off_route_reports (
   id uuid primary key default gen_random_uuid(),
   driver_id uuid references auth.users(id) on delete cascade,
   transcript text not null check (char_length(transcript) between 1 and 280),
@@ -18,23 +18,23 @@ create table if not exists public.reports (
 );
 
 -- Security floor: Row Level Security. A driver sees and changes only their own real rows.
-alter table public.reports enable row level security;
+alter table public.off_route_reports enable row level security;
 
-drop policy if exists "own reports: read" on public.reports;
-create policy "own reports: read" on public.reports
+drop policy if exists "off_route own reports: read" on public.off_route_reports;
+create policy "off_route own reports: read" on public.off_route_reports
   for select to authenticated using (driver_id = auth.uid());
 
-drop policy if exists "own reports: insert" on public.reports;
-create policy "own reports: insert" on public.reports
+drop policy if exists "off_route own reports: insert" on public.off_route_reports;
+create policy "off_route own reports: insert" on public.off_route_reports
   for insert to authenticated with check (driver_id = auth.uid() and simulated = false);
 
-drop policy if exists "own reports: update" on public.reports;
-create policy "own reports: update" on public.reports
+drop policy if exists "off_route own reports: update" on public.off_route_reports;
+create policy "off_route own reports: update" on public.off_route_reports
   for update to authenticated using (driver_id = auth.uid())
   with check (driver_id = auth.uid() and simulated = false);
 
-drop policy if exists "own reports: delete" on public.reports;
-create policy "own reports: delete" on public.reports
+drop policy if exists "off_route own reports: delete" on public.off_route_reports;
+create policy "off_route own reports: delete" on public.off_route_reports
   for delete to authenticated using (driver_id = auth.uid());
 
 -- Public notices for passengers: aggregated per segment + type.
@@ -62,7 +62,7 @@ as $$
     min(r.created_at) as first_reported,
     max(r.expires_at) as expires_at,
     bool_or(r.simulated) as has_simulated
-  from public.reports r
+  from public.off_route_reports r
   where r.expires_at > now()
   group by r.segment_id, r.type
   order by min(r.created_at) desc;
@@ -83,10 +83,10 @@ begin
   if auth.uid() is null then
     raise exception 'sign in required';
   end if;
-  if (select count(*) from public.reports where simulated and expires_at > now()) >= 10 then
+  if (select count(*) from public.off_route_reports where simulated and expires_at > now()) >= 10 then
     raise exception 'too many active simulated reports';
   end if;
-  insert into public.reports (driver_id, transcript, type, segment_id, model_confidence, simulated)
+  insert into public.off_route_reports (driver_id, transcript, type, segment_id, model_confidence, simulated)
   values (null, 'SIMULATED peer driver report', p_type, p_segment, null, true);
 end;
 $$;

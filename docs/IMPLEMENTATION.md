@@ -30,7 +30,7 @@ Naive Bayes classifier (Spanish + English phrases) → type (detour / route_cut 
 *Acceptance:* unit tests pass for classification and affected-stop logic.
 
 **F4 — Supabase schema + auth**
-`reports` table with RLS (own rows only), length check on transcript, `get_public_notices()` function returning only non-identifying aggregated fields with confidence (distinct reporters), `simulate_peer_report()` for the labeled demo peer.
+`off_route_reports` table with RLS (own rows only), length check on transcript, `get_public_notices()` function returning only non-identifying aggregated fields with confidence (distinct reporters), `simulate_peer_report()` for the labeled demo peer.
 *Acceptance:* driver B cannot read driver A's rows; public function exposes no driver id.
 
 **F5 — Driver voice report + stop gate**

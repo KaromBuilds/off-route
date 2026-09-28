@@ -50,7 +50,7 @@ export default function DriverPage() {
     if (transcript.length < 1 || transcript.length > MAX) return setMsg({ kind: "err", text: `The report must be 1–${MAX} characters.` });
     if (!draft.segment) return setMsg({ kind: "err", text: "Choose the part of the route." });
     setBusy(true);
-    const { error } = await supabase.from("reports").insert({
+    const { error } = await supabase.from("off_route_reports").insert({
       driver_id: session.user.id,
       transcript,
       type: draft.type,
