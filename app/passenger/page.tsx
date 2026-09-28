@@ -34,6 +34,7 @@ export default function PassengerPage() {
       <h1>Is my stop running?</h1>
       <p className="muted">{ROUTE_NAME} · inbound to Metro Zaragoza{updated && ` · updated ${time(updated)}`}</p>
 
+      <p style={{ margin: "8px 0 0", fontWeight: 600 }}>1. Choose the stop where you are waiting. We tell you if the micro is passing today.</p>
       <label htmlFor="stop">My stop</label>
       <select id="stop" value={stop ?? ""} onChange={(e) => setStop(e.target.value ? Number(e.target.value) : null)}>
         <option value="">Choose your stop…</option>
@@ -66,7 +67,7 @@ export default function PassengerPage() {
           <div key={n.segment_id + n.type} className={`card notice ${imp.noService.length ? "no_service" : ""}`}>
             <div className="row" style={{ justifyContent: "space-between" }}>
               <b>{TYPE_LABEL[n.type]} · {segmentById(n.segment_id)?.name}</b>
-              <span className={`pill ${n.status}`}>{n.status === "confirmed" ? "Confirmed" : "Unverified"}</span>
+              <span className={`pill ${n.status}`}>{n.status === "confirmed" ? `✓ Confirmed by ${n.reporters} drivers` : "⚠ Only 1 driver so far"}</span>
             </div>
             <p style={{ margin: "8px 0" }}>{imp.message}</p>
             <p className="small muted" style={{ margin: 0 }}>

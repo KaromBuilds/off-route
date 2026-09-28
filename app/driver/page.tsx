@@ -148,7 +148,9 @@ export default function DriverPage() {
 
       {draft && !stopped && (
         <div className="locked" role="status">
-          Draft saved on this phone. 🚐 Vehicle moving — confirm when stopped.
+          {motion === "moving"
+            ? "Draft saved on this phone. 🚐 Vehicle moving — confirm when stopped."
+            : "Draft saved on this phone. 📡 Waiting for GPS to confirm you are stopped (for the demo, choose \"Simulated: stopped\")."}
         </div>
       )}
 
