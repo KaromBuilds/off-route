@@ -14,3 +14,10 @@
 - Money model (not built): free for drivers; government pays for aggregated route data; any payout goes to the whole route, never per report.
 
 **Tomorrow's first move:** create the Supabase project, run `supabase/schema.sql`, enable Google sign-in, push to GitHub and connect Vercel (deploy 1).
+
+## 2026-09-27 — Session 2
+- Supabase free tier allows 2 active projects, so Off Route shares the existing `semestre` project. All objects are prefixed `off_route_` to avoid clashes with earlier weeks.
+- Deploy 1 live at https://off-route-nine.vercel.app (Vercel env vars only; publishable key).
+- A secret key was pasted in the build chat by mistake: it is not used by the app, is redacted from the transcript, and must be rolled in Supabase.
+
+**Tomorrow's first move:** roll the Supabase secret key; run the persona test on the live URL and fix the worst confusion.
