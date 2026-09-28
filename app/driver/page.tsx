@@ -68,7 +68,7 @@ export default function DriverPage() {
   async function simulatePeer() {
     if (!supabase || !lastPublished) return;
     setBusy(true);
-    const { error } = await supabase.rpc("simulate_peer_report", { p_segment: lastPublished.segment, p_type: lastPublished.type });
+    const { error } = await supabase.rpc("off_route_simulate_peer", { p_segment: lastPublished.segment, p_type: lastPublished.type });
     setBusy(false);
     setMsg(error
       ? { kind: "err", text: "Could not add the simulated report." }

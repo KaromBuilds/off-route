@@ -18,7 +18,7 @@ export default function PassengerPage() {
 
   const load = useCallback(async () => {
     if (!supabase) { setError(NOT_CONFIGURED); return; }
-    const { data, error } = await supabase.rpc("get_public_notices");
+    const { data, error } = await supabase.rpc("off_route_public_notices");
     if (error) { setError("Could not load today's notices. Try again in a moment."); return; }
     setError(null);
     setNotices((data ?? []) as PublicNotice[]);

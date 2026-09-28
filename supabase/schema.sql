@@ -39,7 +39,7 @@ create policy "off_route own reports: delete" on public.off_route_reports
 
 -- Public notices for passengers: aggregated per segment + type.
 -- Returns NO driver id, name, email or transcript (shadow clause).
-create or replace function public.get_public_notices()
+create or replace function public.off_route_public_notices()
 returns table (
   segment_id text,
   type text,
@@ -68,12 +68,12 @@ as $$
   order by min(r.created_at) desc;
 $$;
 
-revoke all on function public.get_public_notices() from public;
-grant execute on function public.get_public_notices() to anon, authenticated;
+revoke all on function public.off_route_public_notices() from public;
+grant execute on function public.off_route_public_notices() to anon, authenticated;
 
 -- Demo helper: adds a LABELED simulated second driver agreeing with a report.
 -- Only signed-in users; max 10 active simulated rows to prevent abuse.
-create or replace function public.simulate_peer_report(p_segment text, p_type text)
+create or replace function public.off_route_simulate_peer(p_segment text, p_type text)
 returns void
 language plpgsql
 security definer
@@ -91,5 +91,5 @@ begin
 end;
 $$;
 
-revoke all on function public.simulate_peer_report(text, text) from public;
-grant execute on function public.simulate_peer_report(text, text) to authenticated;
+revoke all on function public.off_route_simulate_peer(text, text) from public;
+grant execute on function public.off_route_simulate_peer(text, text) to authenticated;
