@@ -1,95 +1,32 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { ROUTE_NAME } from "@/lib/route";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <>
+      <h1>When the route changes, the driver knows first.</h1>
+      <p className="muted">Pilot route: {ROUTE_NAME}</p>
+      <p>
+        Off Route lets colectivo drivers report a detour, a route cut or a delay <b>by voice</b>. Passengers see which stops
+        have no service and where to go instead. Every notice is confirmed by drivers and expires on its own.
+      </p>
+      <div className="grid2">
+        <Link href="/passenger" className="card" style={{ textDecoration: "none", color: "inherit" }}>
+          <h2 style={{ marginTop: 0 }}>I&apos;m a passenger →</h2>
+          <p className="muted">Check today&apos;s route map. No sign-in needed.</p>
+        </Link>
+        <Link href="/driver" className="card" style={{ textDecoration: "none", color: "inherit" }}>
+          <h2 style={{ marginTop: 0 }}>I&apos;m a driver →</h2>
+          <p className="muted">Report an exception. Sign in with Google.</p>
+        </Link>
+      </div>
+      <div className="card">
+        <b>What we never do with drivers&apos; data</b>
+        <p className="muted" style={{ marginBottom: 0 }}>
+          No scores, no rankings, no location history. Passengers never see who reported. Drivers can edit or delete
+          everything they report. Police checkpoints are not reported.
+        </p>
+      </div>
+    </>
   );
 }
